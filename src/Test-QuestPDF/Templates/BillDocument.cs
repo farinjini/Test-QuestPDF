@@ -57,9 +57,23 @@ public class BillDocument : IDocument
             page.DefaultTextStyle(x => x.FontSize(14).FontFamily("Microsoft Sans Serif"));
             page.PageColor(Colors.White);
             
-            //page.Header().Element(ComposeHeader);
+            page.Background().Element(ComposeBackgroundLayer);
+            page.Header().Element(ComposeHeader);
             page.Content().Element(ComposeContent);
             page.Footer().Element(ComposeFooter);
+        });
+    }
+
+    private void ComposeHeader(IContainer container)
+    {
+        container.Layers(layer =>
+        {
+            layer
+                .Layer()
+                .Element(Testlayer);
+
+            layer
+                .PrimaryLayer().Text("This is the header");
         });
     }
     
@@ -74,9 +88,9 @@ public class BillDocument : IDocument
             .Layers(layers =>
             {
                 // layer below main content
-                layers
+                /*layers
                     .Layer()
-                    .Element(ComposeBackgroundLayer);
+                    .Element(ComposeBackgroundLayer);*/
 
                 layers
                     .PrimaryLayer()
@@ -85,7 +99,7 @@ public class BillDocument : IDocument
                     {
                         column.Spacing(5);
 
-                        foreach (var _ in Enumerable.Range(0, 7))
+                        foreach (var _ in Enumerable.Range(0, 40))
                             column.Item().Text(Placeholders.Sentence());
                     });
 
@@ -115,19 +129,26 @@ public class BillDocument : IDocument
     private void ComposeBackgroundLayer(IContainer container)
     {
         container
-            .Height(PageSizes.A4.Height - 50)
+            .Height(PageSizes.A4.Height - 15)
             .Width(PageSizes.A4.Width)
-            .Background(Colors.Grey.Lighten3);
-            /*.Column(col =>
+            .Background(Colors.Grey.Lighten3)
+            .Column(col =>
             {
                 col.Item()
                     .Height(PageSizes.A4.Height - 200)
-                    .Width(PageSizes.A4.Width).Text("Top");
+                    .Width(PageSizes.A4.Width)
+                    .Row(row =>
+                    {
+                        row.RelativeItem()
+                            .Text("One Side");
+                        row.ConstantItem(200)
+                            .Text("The other side");
+                    });
                 col.Item()
-                    .Height(200)
+                    .Height(200 - 15)
                     .Width(PageSizes.A4.Width)
                     .Background(Colors.Grey.Darken3).Text("Bottom");
-            });*/
+            });
     }
 
     private void ComposePrimaryLayer(IContainer container)
