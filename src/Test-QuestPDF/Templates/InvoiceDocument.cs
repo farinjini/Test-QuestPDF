@@ -8,9 +8,9 @@ namespace Test_QuestPDF.Templates;
 
 public class InvoiceDocument : IDocument
 {
-    public List<InvoiceModel> Model { get; }
+    public InvoiceModel Model { get; }
 
-    public InvoiceDocument(List<InvoiceModel> model)
+    public InvoiceDocument(InvoiceModel model)
     {
         Model = model;
     }
@@ -49,12 +49,9 @@ public class InvoiceDocument : IDocument
             page.Margin(50);
             page.Size(PageSizes.A4);
             
-            foreach (var item in Model)
-            {
-                page.Header().Element(ComposeHeader(container, item));
-                page.Content().Element(ComposeContent);
-                page.Footer().Element(ComposeFooter);
-            }
+            page.Header().Element(ComposeHeader);
+            page.Content().Element(ComposeContent);
+            page.Footer().Element(ComposeFooter);
         });
         
         /*container
@@ -70,7 +67,7 @@ public class InvoiceDocument : IDocument
             });*/
     }
     
-    private void ComposeHeader(IContainer container, InvoiceModel Model)
+    private void ComposeHeader(IContainer container)
     {
         var titleStyle = TextStyle.Default.FontSize(20).SemiBold().FontColor(Colors.Blue.Medium);
     
@@ -162,6 +159,34 @@ public class InvoiceDocument : IDocument
             });
             
             // step 3
+            foreach (var item in Model.Items)
+            {
+                table.Cell().Element(CellStyle).Text(Model.Items.IndexOf(item) + 1);
+                table.Cell().Element(CellStyle).Text(item.Name);
+                table.Cell().Element(CellStyle).AlignRight().Text($"{item.Price}$");
+                table.Cell().Element(CellStyle).AlignRight().Text(item.Quantity);
+                table.Cell().Element(CellStyle).AlignRight().Text($"{item.Price * item.Quantity}$");
+                
+                static IContainer CellStyle(IContainer container)
+                {
+                    return container.BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingVertical(5);
+                }
+            }
+            
+            foreach (var item in Model.Items)
+            {
+                table.Cell().Element(CellStyle).Text(Model.Items.IndexOf(item) + 1);
+                table.Cell().Element(CellStyle).Text(item.Name);
+                table.Cell().Element(CellStyle).AlignRight().Text($"{item.Price}$");
+                table.Cell().Element(CellStyle).AlignRight().Text(item.Quantity);
+                table.Cell().Element(CellStyle).AlignRight().Text($"{item.Price * item.Quantity}$");
+                
+                static IContainer CellStyle(IContainer container)
+                {
+                    return container.BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingVertical(5);
+                }
+            }
+            
             foreach (var item in Model.Items)
             {
                 table.Cell().Element(CellStyle).Text(Model.Items.IndexOf(item) + 1);
