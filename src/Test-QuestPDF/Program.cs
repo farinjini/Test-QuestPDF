@@ -1,7 +1,6 @@
 ﻿using QuestPDF;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using Test_QuestPDF.Data;
 using Test_QuestPDF.Templates;
 
 namespace Test_QuestPDF;
@@ -17,8 +16,10 @@ class Program
     {
         Settings.License = LicenseType.Community;
         
-        var model = InvoiceDocumentDataSource.GetInvoiceDetails();
-        var document = new InvoiceDocument(model);
+        //var model = InvoiceDocumentDataSource.GetInvoiceDetails();
+        //var document = new InvoiceDocument(model);
+        
+        var document = new BillDocument();
         
         document.GeneratePdfAndShow();
         
