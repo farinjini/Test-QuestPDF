@@ -58,7 +58,7 @@ public class BillDocument : IDocument
             page.PageColor(Colors.White);
             
             page.Background().Element(ComposeBackgroundLayer);
-            page.Header().Element(ComposeHeader);
+            //page.Header().Element(ComposeHeader);
             page.Content().Element(ComposeContent);
             page.Footer().Element(ComposeFooter);
         });
@@ -66,70 +66,26 @@ public class BillDocument : IDocument
 
     private void ComposeHeader(IContainer container)
     {
-        container.Layers(layer =>
-        {
-            layer
-                .Layer()
-                .Element(Testlayer);
-
-            layer
-                .PrimaryLayer().Text("This is the header");
-        });
+        container.Text("This is the header");
     }
-    
+
     private void ComposeContent(IContainer container)
     {
-        /*container.Layers(layer =>
-        {
-            layer.Layer().Element(ComposeBackgroundLayer);
-            layer.PrimaryLayer().Element(ComposePrimaryLayer);
-        });*/
         container
-            .Layers(layers =>
+            .Padding(25)
+            .Column(column =>
             {
-                // layer below main content
-                /*layers
-                    .Layer()
-                    .Element(ComposeBackgroundLayer);*/
+                column.Spacing(5);
 
-                layers
-                    .PrimaryLayer()
-                    .Padding(25)
-                    .Column(column =>
-                    {
-                        column.Spacing(5);
-
-                        foreach (var _ in Enumerable.Range(0, 40))
-                            column.Item().Text(Placeholders.Sentence());
-                    });
-
-                // layer above the main content    
-                layers
-                    .Layer()
-                    .AlignCenter()
-                    .AlignMiddle()
-                    .Text("Watermark")
-                    .FontSize(48).Bold().FontColor(Colors.Green.Lighten3);
-
-                /*layers
-                    .Layer()
-                    .AlignBottom()
-                    .PageNumber("Page {number}")
-                    .FontSize(16).FontColor(Colors.Green.Medium)*/;
+                foreach (var _ in Enumerable.Range(0, 40))
+                    column.Item().Text(Placeholders.Sentence());
             });
-    }
-
-    private void Testlayer(IContainer container)
-    {
-        container.Height(100)
-            .Width(100)
-            .Background(Colors.Grey.Lighten3);
     }
     
     private void ComposeBackgroundLayer(IContainer container)
     {
         container
-            .Height(PageSizes.A4.Height - 15)
+            .Height(PageSizes.A4.Height)
             .Width(PageSizes.A4.Width)
             .Background(Colors.Grey.Lighten3)
             .Column(col =>
@@ -145,15 +101,10 @@ public class BillDocument : IDocument
                             .Text("The other side");
                     });
                 col.Item()
-                    .Height(200 - 15)
+                    .Height(200)
                     .Width(PageSizes.A4.Width)
                     .Background(Colors.Grey.Darken3).Text("Bottom");
             });
-    }
-
-    private void ComposePrimaryLayer(IContainer container)
-    {
-        container.Text("Hi There");
     }
     
     private void ComposeFooter(IContainer container)
@@ -170,12 +121,5 @@ public class BillDocument : IDocument
                     x.Span(" of ");
                     x.TotalPages();
                 });
-        
-        /*container.AlignCenter().Text(x =>
-        {
-            x.CurrentPageNumber();
-            x.Span(" / ");
-            x.TotalPages();
-        });*/
     }
 }
