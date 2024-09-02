@@ -1,17 +1,13 @@
 ﻿using QuestPDF;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using QuestPDF.Previewer;
 using Test_QuestPDF.Templates;
 
 namespace Test_QuestPDF;
 
 class Program
 {
-    public Program()
-    {
-        //QuestPDF.Settings.License = LicenseType.Community;
-    }
-    
     static void Main(string[] args)
     {
         Settings.License = LicenseType.Community;
@@ -21,8 +17,11 @@ class Program
         
         var document = new BillDocument();
         
-        document.GeneratePdfAndShow();
+        document.GeneratePdfAndShow(); 
+        //document.ShowInPreviewerAsync(12345);
         
         Console.WriteLine("Hello, World!");
+
+        var s = Console.ReadLine();
     }
 }

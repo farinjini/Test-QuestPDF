@@ -71,7 +71,7 @@ public class BillDocument : IDocument
 
     private void ComposeContent(IContainer container)
     {
-        container
+        /*container
             .Padding(25)
             .Column(column =>
             {
@@ -79,6 +79,60 @@ public class BillDocument : IDocument
 
                 foreach (var _ in Enumerable.Range(0, 40))
                     column.Item().Text(Placeholders.Sentence());
+            });*/
+        container
+            .Width(PageSizes.A4.Width)
+            .Column(col =>
+            {
+                foreach (var _ in Enumerable.Range(0, 5))
+                {
+                    //Top Section
+                    col.Item()
+                        .Height(PageSizes.A4.Height - 190)
+                        .Width(PageSizes.A4.Width)
+                        .Row(row =>
+                        {
+                            //Top Section - Left Side
+                            row.RelativeItem()
+                                .Padding(20)
+                                .Column(col =>
+                                {
+                                    //This is where the main content should go
+                                    foreach (var _ in Enumerable.Range(0, 20))
+                                        col.Item().Text(Placeholders.Sentence());
+                                });
+
+                            //Top Section - Right Side
+                            row.ConstantItem(190)
+                                .Column(col =>
+                                {
+                                    col.Item()
+                                        .Width(190)
+                                        .Height(200)
+                                        .Column(col =>
+                                        {
+                                            //This is where the sidebar contact details should go
+                                        });
+
+                                    col.Item()
+                                        .Width(190)
+                                        .Column(col =>
+                                        {
+                                            //This is there the billing details should go
+                                        });
+                                });
+                        });
+
+                    //Bottom Section
+                    /*col.Item()
+                        .Height(190)
+                        .Width(PageSizes.A4.Width)
+                        .BorderTop(5)
+                        .BorderColor(Colors.Red.Lighten1)
+                        .Background(Colors.Grey.Darken3)
+                        .Text("Bottom");*/
+                }
+                
             });
     }
     
@@ -89,11 +143,13 @@ public class BillDocument : IDocument
             .Width(PageSizes.A4.Width)
             .Column(col =>
             {
+                //Top Section
                 col.Item()
                     .Height(PageSizes.A4.Height - 190)
                     .Width(PageSizes.A4.Width)
                     .Row(row =>
                     {
+                        //Top Section - Left Side
                         row.RelativeItem()
                             .Column(col =>
                             {
@@ -104,10 +160,43 @@ public class BillDocument : IDocument
                                     .FitArea()
                                     .WithCompressionQuality(ImageCompressionQuality.Medium);
                             });
+                        
+                        //Top Section - Right Side
                         row.ConstantItem(190)
                             .Background(Colors.Grey.Lighten2)
-                            .Text("The other side");
+                            .Column(col =>
+                            {
+                                col.Item()
+                                    .Width(190)
+                                    .Height(200)
+                                    .Column(col =>
+                                    {
+                                        //Contact Us
+                                        col.Item().Background(Colors.Grey.Darken1)
+                                            .Padding(5)
+                                            .Text("Contact Us").FontColor(Colors.White);
+                                        
+                                        //Contact Details
+                                        col.Item().Text(text =>
+                                        {
+                                            text.Span("Contact Details").FontColor(Colors.White);
+                                        });
+                                    });
+                                
+                                col.Item()
+                                    .Width(190)
+                                    .Column(col =>
+                                    {
+                                        //Billing Details
+                                        col.Item().Background(Colors.Grey.Darken1)
+                                            .Padding(5)
+                                            .Text("Bill Overview").FontColor(Colors.White);
+                                    });
+                                    
+                            });
                     });
+                
+                //Bottom Section
                 col.Item()
                     .Height(190)
                     .Width(PageSizes.A4.Width)
