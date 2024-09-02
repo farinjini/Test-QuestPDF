@@ -95,6 +95,7 @@ public class BillDocument : IDocument
                             //Top Section - Left Side
                             row.RelativeItem()
                                 .Padding(20)
+                                .PaddingTop(80)
                                 .Column(col =>
                                 {
                                     //This is where the main content should go
@@ -155,7 +156,7 @@ public class BillDocument : IDocument
                             {
                                 //KEDCO Logo
                                 col.Item()
-                                    .Height(80)
+                                    .Height(76)
                                     .Image(LogoImage)
                                     .FitArea()
                                     .WithCompressionQuality(ImageCompressionQuality.Medium);
