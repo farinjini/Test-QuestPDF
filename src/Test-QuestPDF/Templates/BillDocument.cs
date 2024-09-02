@@ -87,22 +87,32 @@ public class BillDocument : IDocument
         container
             .Height(PageSizes.A4.Height)
             .Width(PageSizes.A4.Width)
-            .Background(Colors.Grey.Lighten3)
             .Column(col =>
             {
                 col.Item()
-                    .Height(PageSizes.A4.Height - 200)
+                    .Height(PageSizes.A4.Height - 190)
                     .Width(PageSizes.A4.Width)
                     .Row(row =>
                     {
                         row.RelativeItem()
-                            .Text("One Side");
-                        row.ConstantItem(200)
+                            .Column(col =>
+                            {
+                                //KEDCO Logo
+                                col.Item()
+                                    .Height(80)
+                                    .Image(LogoImage)
+                                    .FitArea()
+                                    .WithCompressionQuality(ImageCompressionQuality.Medium);
+                            });
+                        row.ConstantItem(190)
+                            .Background(Colors.Grey.Lighten2)
                             .Text("The other side");
                     });
                 col.Item()
-                    .Height(200)
+                    .Height(190)
                     .Width(PageSizes.A4.Width)
+                    .BorderTop(5)
+                    .BorderColor(Colors.Red.Lighten1)
                     .Background(Colors.Grey.Darken3).Text("Bottom");
             });
     }
@@ -110,7 +120,6 @@ public class BillDocument : IDocument
     private void ComposeFooter(IContainer container)
     {
         container
-            //.Height(10)
             .Background(Colors.Blue.Lighten3)
             .DefaultTextStyle(x => x.FontSize(10))
             .AlignCenter()
