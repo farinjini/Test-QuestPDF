@@ -164,13 +164,13 @@ public class BillDocument : IDocument
                         row.RelativeItem()
                             .Column(col =>
                             {
-                                //Logo Region and Customer Info
+                                //Logo Region, Barcode and Customer Info
                                 col.Item()
                                     .Background(Colors.Red.Lighten1)
                                     .Height(200)
                                     .Column(col =>
                                     {
-                                        //Logo and Region
+                                        //Logo, Region and Barcode
                                         col.Item().Row(row =>
                                         {
                                             //Logo
@@ -179,16 +179,26 @@ public class BillDocument : IDocument
                                                 .FitWidth()
                                                 .WithCompressionQuality(ImageCompressionQuality.Medium);
                                             
-                                            
+                                            //Region and Barcode
+                                            row.RelativeItem()
+                                                .Background(Colors.Amber.Lighten3)
+                                                .Column(col =>
+                                                {
+                                                    //Region
+                                                    col.Item().Height(80).Text("Region").FontColor(Colors.Black).Style(_titleStyle);
+                                                    
+                                                    //Barcode
+                                                    col.Item().Text("Barcode").FontColor(Colors.Black).Style(_titleStyle);
+                                                });
+
                                         });
                                         
                                         //Customer Info
                                         col.Item()
-                                            .Height(100)
-                                            .Background(Colors.Blue.Lighten1)
+                                            .Background(Colors.Blue.Lighten3)
                                             .Row(row =>
                                             {
-                                                row.RelativeItem().Text("Hey there");
+                                                row.RelativeItem().Text("Customer Info");
                                             });
                                     });
 
