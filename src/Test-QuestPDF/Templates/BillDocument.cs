@@ -167,7 +167,7 @@ public class BillDocument : IDocument
                                 //Logo Region, Barcode and Customer Info
                                 col.Item()
                                     .Background(Colors.Red.Lighten1)
-                                    .Height(200)
+                                    .Height(200.5f)
                                     .Column(col =>
                                     {
                                         //Logo, Region and Barcode
@@ -199,6 +199,125 @@ public class BillDocument : IDocument
                                             .Row(row =>
                                             {
                                                 row.RelativeItem().Text("Customer Info");
+                                            });
+                                    });
+                                
+                                //Bill Details
+                                col.Item()
+                                    .Background(Colors.Green.Lighten3)
+                                    .DefaultTextStyle(dts => dts.FontSize(7.5f))
+                                    .Column(col =>
+                                    {
+                                        //Meter Account Details
+                                        col
+                                            .Item()
+                                            .Table(table =>
+                                            {
+                                                IContainer DefaultCellStyle(IContainer container, string backgroundColor)
+                                                {
+                                                    return container
+                                                        .PaddingVertical(5)
+                                                        .AlignLeft()
+                                                        .AlignMiddle();
+                                                }
+
+                                                table.ColumnsDefinition(columns =>
+                                                {
+                                                    columns.RelativeColumn();
+                                                    columns.RelativeColumn();
+                                                    columns.ConstantColumn(70);
+                                                    columns.ConstantColumn(70);
+                                                    columns.RelativeColumn();
+                                                    columns.RelativeColumn();
+                                                });
+
+                                                table.Header(header =>
+                                                {
+                                                    header.Cell().ColumnSpan(6).BorderBottom(1).BorderTop(1).Element(CellStyle)
+                                                    .ExtendHorizontal().AlignLeft().PaddingLeft(15).Text("Meter and Account Details").FontSize(10).Bold();
+
+                                                    IContainer CellStyle(IContainer container) => DefaultCellStyle(container, Colors.Grey.Lighten3);
+                                                });
+
+
+                                                //Row 1
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).PaddingLeft(15).Text(text =>
+                                                {
+                                                    text.Span("Meter Number:").Bold();
+                                                    text.Span($"");
+                                                });
+                                                table.Cell().Element(CellStyle).PaddingLeft(5).Text(text =>
+                                                {
+                                                    text.Span("Dials:").Bold();
+                                                    text.Span($"");
+                                                });
+                                                table.Cell().Element(CellStyle).PaddingLeft(5).Text(text =>
+                                                {
+                                                    text.Span("Multiplier:").Bold();
+                                                    text.Span($"");
+                                                });
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text(text =>
+                                                {
+                                                    text.Span("Meter Read Date:").Bold();
+                                                    text.Span("");
+                                                });
+
+                                                //Row 2
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).PaddingLeft(15).Text(text =>
+                                                {
+                                                    text.Span("Last Actual Reading: ").Bold();
+                                                    text.Span($"");
+                                                });
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).PaddingLeft(5).Text(text =>
+                                                {
+                                                    text.Span("LAR Date: ").Bold();
+                                                    text.Span("");
+                                                });
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text(text =>
+                                                {
+                                                    text.Span("ADC: ").Bold();
+                                                    text.Span("");
+                                                });
+
+                                                //Row 3
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).PaddingLeft(15).Text(text =>
+                                                {
+                                                    text.Span("Tariff: ").Bold();
+                                                    text.Span($"");
+                                                });
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).PaddingLeft(5).Text(text =>
+                                                {
+                                                    text.Span("Rate: ").Bold();
+                                                    text.Span($"");
+                                                });
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text(text =>
+                                                {
+                                                    text.Span("Old Acc: ").Bold();
+                                                    text.Span("");
+                                                });
+
+                                                //Row 4
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).PaddingLeft(15).Text(text =>
+                                                {
+                                                    text.Span("Feeder: ").Bold();
+                                                    text.Span($"");
+                                                });
+
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).PaddingLeft(5).Text(text =>
+                                                {
+                                                    text.Span("DT: ").Bold();
+                                                    text.Span($"");
+                                                });
+
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).PaddingLeft(0).Text(text =>
+                                                {
+                                                    text.Span("Band: ").Bold();
+                                                    text.Span($"");
+                                                });
+
+
+                                                IContainer CellStyle(IContainer container) => DefaultCellStyle(container, Colors.White).ShowOnce();
+
                                             });
                                     });
 
