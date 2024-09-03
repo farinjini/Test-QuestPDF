@@ -319,6 +319,219 @@ public class BillDocument : IDocument
                                                 IContainer CellStyle(IContainer container) => DefaultCellStyle(container, Colors.White).ShowOnce();
 
                                             });
+                                        
+                                        //Details of Charges
+                                        col
+                                            .Item()
+                                            .Table(table =>
+                                            {
+                                                IContainer DefaultCellStyle(IContainer container, string backgroundColor)
+                                                {
+                                                    return container
+                                                        .PaddingVertical(4)
+                                                        .AlignLeft()
+                                                        .AlignMiddle();
+                                                }
+
+                                                table.ColumnsDefinition(columns =>
+                                                {
+                                                    columns.RelativeColumn();
+                                                    columns.RelativeColumn();
+                                                    columns.RelativeColumn();
+                                                    columns.RelativeColumn();
+                                                    columns.RelativeColumn();
+                                                });
+
+                                                table.Header(header =>
+                                                {
+                                                    header.Cell().ColumnSpan(5).BorderBottom(1).BorderTop(1).Element(CellStyle)
+                                                    .ExtendHorizontal().AlignLeft().PaddingLeft(15).Text($"Details of Charges : This bill is based on ...").FontSize(10).Bold();
+
+                                                    IContainer CellStyle(IContainer container) => DefaultCellStyle(container, Colors.Grey.Lighten3);
+                                                });
+
+                                                //Row 1
+                                                table.Cell().ColumnSpan(5).Element(CellStyle).PaddingLeft(15).Text("Energy Usage Calculation:").FontSize(8).Bold();
+
+                                                //Row 2
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Service Period").FontSize(8);
+                                                table.Cell().Element(CellStyle).Text("Number of Days").FontSize(8);
+                                                table.Cell().Element(CellStyle).Text("Current Reading").FontSize(8);
+                                                table.Cell().Element(CellStyle).Text("Previous Reading").FontSize(8);
+                                                table.Cell().Element(CellStyle).Text("Total Usage").FontSize(8);
+
+                                                //Row 3
+                                                table.Cell().BorderBottom(1).BorderTop(1).BorderColor(Colors.Grey.Darken1).Element(CellStyle).PaddingLeft(15).Text("").FontSize(8);
+                                                table.Cell().BorderBottom(1).BorderTop(1).BorderColor(Colors.Grey.Darken1).Element(CellStyle).Text("").FontSize(8);
+                                                table.Cell().BorderBottom(1).BorderTop(1).BorderColor(Colors.Grey.Darken1).Element(CellStyle).Text($"").FontSize(8);
+                                                table.Cell().BorderBottom(1).BorderTop(1).BorderColor(Colors.Grey.Darken1).Element(CellStyle).Text($"").FontSize(8);
+                                                table.Cell().BorderBottom(1).BorderTop(1).BorderColor(Colors.Grey.Darken1).Element(CellStyle).Text($"").FontSize(8);
+
+
+                                                IContainer CellStyle(IContainer container) => DefaultCellStyle(container, Colors.White).ShowOnce();
+                                               
+
+                                            });
+                                        
+                                        //Payments and charges calculation
+                                        col
+                                            .Item()
+                                            .Table(table =>
+                                            {
+                                                IContainer DefaultCellStyle(IContainer container, string backgroundColor)
+                                                {
+                                                    return container
+                                                        .PaddingVertical(4)
+                                                        .PaddingBottom(30)
+                                                        .AlignLeft()
+                                                        .AlignMiddle();
+                                                }
+
+                                                table.ColumnsDefinition(columns =>
+                                                {
+                                                    columns.RelativeColumn();
+                                                    columns.RelativeColumn();
+                                                    columns.RelativeColumn();
+                                                });
+
+                                                //Row 1
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Payments and Charges Calculation:").FontSize(7).Bold();
+                                                table.Cell().Element(CellStyle).Text($"Last Pay Date: ").FontSize(7);
+                                                table.Cell().Element(CellStyle).Text($"Last Pay Amount : ₦").FontSize(7);
+
+
+                                                IContainer CellStyle(IContainer container) => DefaultCellStyle(container, Colors.White).ShowOnce();
+
+
+                                            });
+
+                                        //Before this Bill
+                                        col
+                                            .Item()
+                                            .Table(table =>
+                                            {
+                                                IContainer DefaultCellStyle(IContainer container, string backgroundColor)
+                                                {
+                                                    return container
+                                                        .PaddingVertical(4)
+                                                        .AlignLeft()
+                                                        .AlignMiddle();
+                                                }
+
+                                                table.ColumnsDefinition(columns =>
+                                                {
+                                                    columns.RelativeColumn();
+                                                    columns.RelativeColumn();
+                                                    columns.RelativeColumn();
+                                                });
+
+                                                table.Header(header =>
+                                                {
+                                                    header.Cell().ColumnSpan(3).BorderBottom(1).BorderTop(1).Element(CellStyle)
+                                                        .ExtendHorizontal().AlignLeft().PaddingLeft(15).Text("Last Bill Summary").FontSize(10).Bold();
+
+                                                    IContainer CellStyle(IContainer container) => DefaultCellStyle(container, Colors.Grey.Lighten3);
+                                                });
+
+                                                /*
+                                                //Row 1
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Last Bill Period:");
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text($"{_model.LastBillPeriod}");
+
+                                                //Row 1
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Opening Balance:");
+                                                //If there's a credit on previous balance
+                                                if(_model.LastBillOpeningBalance < 0)
+                                                {
+                                                    table.Cell().ColumnSpan(2).Element(CellStyle).Text($"₦[{_model.LastBillOpeningBalance:n2}]");
+                                                }
+                                                else
+                                                {
+                                                    table.Cell().ColumnSpan(2).Element(CellStyle).Text($"₦{_model.LastBillOpeningBalance:n2}");
+                                                }
+
+                                                //Row 1
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Billed Amount:");
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text($"₦{_model.LastBillAmount:n2}");
+
+                                                //Row 1
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Adjustment:");
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text($"₦{_model.LastBillAdjustments:n2}");
+                                                */
+                                                
+                                                //Row 1
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Closing Balance:");
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text($"₦");
+
+
+                                                //Row 1
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Payments:");
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text($"₦");
+
+                                                //Row 1
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Adjustments:");
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text($"₦");
+
+
+                                                IContainer CellStyle(IContainer container) => DefaultCellStyle(container, Colors.White).ShowOnce();
+
+
+                                            });
+
+
+                                        //This bill charges
+                                        col
+                                            .Item()
+                                            .Table(table =>
+                                            {
+                                                IContainer DefaultCellStyle(IContainer container, string backgroundColor)
+                                                {
+                                                    return container
+                                                        .PaddingVertical(4)
+                                                        .AlignLeft()
+                                                        .AlignMiddle();
+                                                }
+
+                                                table.ColumnsDefinition(columns =>
+                                                {
+                                                    columns.RelativeColumn();
+                                                    columns.RelativeColumn();
+                                                    columns.RelativeColumn();
+                                                });
+
+                                                table.Header(header =>
+                                                {
+                                                    header.Cell().ColumnSpan(3).BorderBottom(1).BorderTop(1).Element(CellStyle)
+                                                        .ExtendHorizontal().AlignLeft().PaddingLeft(15).Text("This Bill's Charges").FontSize(10).Bold();
+
+                                                    IContainer CellStyle(IContainer container) => DefaultCellStyle(container, Colors.Grey.Lighten3);
+                                                });
+
+                                                //Row 1
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Energy Charge:");
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text($"₦/kWH x kWH = ₦");
+
+                                                //Row 2
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Fixed Charge:");
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text("₦0");
+
+                                                //Row 3
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Value Added Tax (VAT @7.5%):");
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text($"0.075 x ₦ = ₦");
+
+                                                //Row 4
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Charges this month:");
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text($"₦ + ₦ = ₦");
+
+                                                //Row 5
+                                                table.Cell().Element(CellStyle).PaddingLeft(15).Text("Total Due:");
+                                                table.Cell().ColumnSpan(2).Element(CellStyle).Text($"₦  + ₦ = ₦");
+
+
+                                                IContainer CellStyle(IContainer container) => DefaultCellStyle(container, Colors.White).ShowOnce();
+
+
+                                            });
                                     });
 
                             });
@@ -338,12 +551,6 @@ public class BillDocument : IDocument
                                             .Padding(5)
                                             .PaddingHorizontal(3)
                                             .Text("Contact Us").FontColor(Colors.White).Style(_titleStyle4);
-                                        
-                                        //Contact Details
-                                        /*col.Item().Text(text =>
-                                        {
-                                            text.Span("Contact Details").FontColor(Colors.White);
-                                        });*/
                                     });
                                 
                                 col.Item()
