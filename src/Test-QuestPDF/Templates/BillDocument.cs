@@ -195,6 +195,7 @@ public class BillDocument : IDocument
                                         //Customer Info
                                         col.Item()
                                             .Background(Colors.Blue.Lighten3)
+                                            .ExtendVertical()
                                             .Row(row =>
                                             {
                                                 row.RelativeItem().Text("Customer Info");
