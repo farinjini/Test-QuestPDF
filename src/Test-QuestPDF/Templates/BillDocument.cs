@@ -94,7 +94,7 @@ public class BillDocument : IDocument
             .Width(PageSizes.A4.Width)
             .Column(col =>
             {
-                foreach (var _ in Enumerable.Range(0, 5))
+                foreach (var _ in Enumerable.Range(0, 1))
                 {
                     //Top Section
                     col.Item()
@@ -109,8 +109,8 @@ public class BillDocument : IDocument
                                 .Column(col =>
                                 {
                                     //This is where the main content should go
-                                    foreach (var _ in Enumerable.Range(0, 20))
-                                        col.Item().Text(Placeholders.Sentence());
+                                    /*foreach (var _ in Enumerable.Range(0, 20))
+                                        col.Item().Text(Placeholders.Sentence());*/
                                 });
 
                             //Top Section - Right Side
@@ -164,12 +164,32 @@ public class BillDocument : IDocument
                         row.RelativeItem()
                             .Column(col =>
                             {
-                                //KEDCO Logo
+                                //Logo Region and Customer Info
                                 col.Item()
-                                    .Height(76)
-                                    .Image(LogoImage)
-                                    .FitArea()
-                                    .WithCompressionQuality(ImageCompressionQuality.Medium);
+                                    .Column(col =>
+                                    {
+                                        //Logo and Region
+                                        col.Item().Row(row =>
+                                        {
+                                            //Logo
+                                            row.ConstantItem(190)
+                                                .Image(LogoImage)
+                                                .FitWidth()
+                                                .WithCompressionQuality(ImageCompressionQuality.Medium);
+                                            
+                                            
+                                        });
+                                        
+                                        //Customer Info
+                                        col.Item()
+                                            .Height(200)
+                                            .Background(Colors.Red.Lighten1)
+                                            .Row(row =>
+                                            {
+                                                
+                                            });
+                                    });
+
                             });
                         
                         //Top Section - Right Side
@@ -185,6 +205,7 @@ public class BillDocument : IDocument
                                         //Contact Us
                                         col.Item().Background(Colors.Grey.Darken1)
                                             .Padding(5)
+                                            .PaddingHorizontal(3)
                                             .Text("Contact Us").FontColor(Colors.White).Style(_titleStyle4);
                                         
                                         //Contact Details
@@ -201,6 +222,7 @@ public class BillDocument : IDocument
                                         //Billing Details
                                         col.Item().Background(Colors.Grey.Darken1)
                                             .Padding(5)
+                                            .PaddingHorizontal(3)
                                             .Text("Bill Overview").FontColor(Colors.White).Style(_titleStyle4);
                                     });
                                     
