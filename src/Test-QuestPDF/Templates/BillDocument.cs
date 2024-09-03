@@ -10,6 +10,16 @@ public class BillDocument : IDocument
     public Bills Bills { get; }
     
     private static Image LogoImage { get; } = Image.FromFile("Images/logo.png");
+    
+    readonly TextStyle _titleStyle = TextStyle.Default.FontSize(13).SemiBold();
+
+    readonly TextStyle _titleStyle2 = TextStyle.Default.FontSize(10);
+
+    readonly TextStyle _titleStyle3 = TextStyle.Default.FontSize(12).SemiBold();
+
+    readonly TextStyle _titleStyle4 = TextStyle.Default.FontSize(11);
+
+    readonly TextStyle _titleStyle5 = TextStyle.Default.FontSize(8);
 
     public BillDocument(Bills bills)
     {
@@ -25,7 +35,7 @@ public class BillDocument : IDocument
     {
         return new DocumentMetadata
         {
-            Title = "KEDCO Invoice",
+            Title = "KEDCO Bill",
             Author = "Deckstream",
             Keywords = "Bill, Customer, KEDCO Bill",
             Producer = "Venn Technology Limited",
@@ -175,13 +185,13 @@ public class BillDocument : IDocument
                                         //Contact Us
                                         col.Item().Background(Colors.Grey.Darken1)
                                             .Padding(5)
-                                            .Text("Contact Us").FontColor(Colors.White);
+                                            .Text("Contact Us").FontColor(Colors.White).Style(_titleStyle4);
                                         
                                         //Contact Details
-                                        col.Item().Text(text =>
+                                        /*col.Item().Text(text =>
                                         {
                                             text.Span("Contact Details").FontColor(Colors.White);
-                                        });
+                                        });*/
                                     });
                                 
                                 col.Item()
@@ -191,7 +201,7 @@ public class BillDocument : IDocument
                                         //Billing Details
                                         col.Item().Background(Colors.Grey.Darken1)
                                             .Padding(5)
-                                            .Text("Bill Overview").FontColor(Colors.White);
+                                            .Text("Bill Overview").FontColor(Colors.White).Style(_titleStyle4);
                                     });
                                     
                             });
