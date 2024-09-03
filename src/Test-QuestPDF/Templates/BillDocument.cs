@@ -166,7 +166,6 @@ public class BillDocument : IDocument
                             {
                                 //Logo Region, Barcode and Customer Info
                                 col.Item()
-                                    .Background(Colors.Red.Lighten1)
                                     .Height(200.5f)
                                     .Column(col =>
                                     {
@@ -204,7 +203,7 @@ public class BillDocument : IDocument
                                 
                                 //Bill Details
                                 col.Item()
-                                    .Background(Colors.Green.Lighten3)
+                                    //.Background(Colors.Green.Lighten3)
                                     .DefaultTextStyle(dts => dts.FontSize(7.5f))
                                     .Column(col =>
                                     {
@@ -573,16 +572,104 @@ public class BillDocument : IDocument
                     .Width(PageSizes.A4.Width)
                     .BorderTop(5)
                     .BorderColor(Colors.Red.Lighten1)
-                    .Background(Colors.Grey.Darken3).Text("Bottom");
+                    //.Background(Colors.Grey.Darken3)
+                    .Column(col =>
+                    {
+                        col
+                            .Item()
+                            .PaddingHorizontal(15)
+                            .PaddingVertical(10)
+                            .Text($"Region").Bold();
+
+                        col
+                            .Item()
+                            .DefaultTextStyle(dts =>
+                                dts.FontSize(8f)
+                            )
+                            .PaddingHorizontal(15)
+                            .Table(table =>
+                            {
+                                IContainer DefaultCellStyle(IContainer container, string backgroundColor)
+                                {
+                                    return container
+                                        .PaddingVertical(2)
+                                        .AlignLeft()
+                                        .AlignMiddle();
+                                }
+
+                                table.ColumnsDefinition(columns =>
+                                {
+                                    columns.ConstantColumn(60);
+                                    columns.RelativeColumn();
+                                    columns.ConstantColumn(130);
+                                    columns.RelativeColumn();
+                                });
+
+                                //Row 1
+                                table.Cell().Element(CellStyle).Text("Bill Month:").Bold();
+                                table.Cell().Element(CellStyle).Text($"");
+                                table.Cell().Element(CellStyle).Text("Net Arrears:").Bold();
+                                table.Cell().Element(CellStyle).Text($"₦");
+                                
+
+                                //Row 2
+                                table.Cell().Element(CellStyle).Text("Acc:").Bold();
+                                table.Cell().Element(CellStyle).Text($"").Bold();
+                                table.Cell().Element(CellStyle).Text("Current Charges").Underline().Bold();
+                                table.Cell().Element(CellStyle).Text("");
+
+                                //Row 3
+                                table.Cell().Element(CellStyle).Text("Meter Number:").Bold();
+                                table.Cell().Element(CellStyle).Text($"");
+                                table.Cell().Element(CellStyle).Text("Consumption:").Bold();
+                                table.Cell().Element(CellStyle).Text($"kWH");
+
+                                //Row 4
+                                table.Cell().Element(CellStyle).Text("Tariff:").Bold();
+                                table.Cell().Element(CellStyle).Text($"");
+                                table.Cell().Element(CellStyle).Text("Energy Charge:").Bold();
+                                table.Cell().Element(CellStyle).Text($"₦");
+
+                                //Row 5
+                                table.Cell().Element(CellStyle).Text("Customer:").Bold();
+                                table.Cell().Element(CellStyle).Text($"").ClampLines(1);
+                                table.Cell().Element(CellStyle).Text("Fixed Charge:").Bold();
+                                table.Cell().Element(CellStyle).Text("₦0");
+
+                                //Row 6
+                                table.Cell().Element(CellStyle).Text("Address:").Bold();
+                                table.Cell().Element(CellStyle).Text($"").ClampLines(1);
+                                table.Cell().Element(CellStyle).Text("Value Added Tax (VAT @7.5%):").Bold();
+                                table.Cell().Element(CellStyle).Text($"₦");
+
+                                //Row 7
+                                table.Cell().Element(CellStyle).Text("Due Date:").Bold();
+                                table.Cell().Element(CellStyle).Text($"");
+                                table.Cell().Element(CellStyle).Text("Charges This Month:").Bold();
+                                table.Cell().Element(CellStyle).Text($"₦");
+
+                                //Row 8
+                                table.Cell().Element(CellStyle).Text("Band: ");
+                                table.Cell().Element(CellStyle).Text($"");
+                                table.Cell().Element(CellStyle).Text("Total Due:").Bold();
+                                //For credit on total due
+                                table.Cell().Element(CellStyle).Text($"₦").Bold();
+                                
+                                IContainer CellStyle(IContainer container) => DefaultCellStyle(container, Colors.White).ShowOnce();
+                                
+                            });
+                    });
             });
     }
     
     private void ComposeFooter(IContainer container)
     {
         container
-            .Background(Colors.Blue.Lighten3)
+            //.Background(Colors.Blue.Lighten3)
             .DefaultTextStyle(x => x.FontSize(10))
-            .AlignCenter()
+            .PaddingHorizontal(10)
+            .PaddingVertical(3)
+            .AlignLeft()
             .Text(x =>
                 {
                     x.Span("Page ");
