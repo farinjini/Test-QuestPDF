@@ -166,6 +166,8 @@ public class BillDocument : IDocument
                             {
                                 //Logo Region and Customer Info
                                 col.Item()
+                                    .Background(Colors.Red.Lighten1)
+                                    .Height(200)
                                     .Column(col =>
                                     {
                                         //Logo and Region
@@ -182,11 +184,11 @@ public class BillDocument : IDocument
                                         
                                         //Customer Info
                                         col.Item()
-                                            .Height(200)
-                                            .Background(Colors.Red.Lighten1)
+                                            .Height(100)
+                                            .Background(Colors.Blue.Lighten1)
                                             .Row(row =>
                                             {
-                                                
+                                                row.RelativeItem().Text("Hey there");
                                             });
                                     });
 
